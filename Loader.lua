@@ -1,1 +1,1 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/TomsStuff/Toms-Executor/main/UITestLoader"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/PossiblyTom/RyftSploit/main/UI.lua"))()
