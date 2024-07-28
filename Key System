@@ -1,0 +1,89 @@
+local a=game:GetService"Players"or game:GetService"Players - Client"
+local b=a.LocalPlayer
+
+
+local c={SiIIiiness=
+true,quabbleduff=
+true,bwcstick=
+true,iamnottom_1=
+true,flumeswashed=
+true
+}
+
+
+if c[b.Name]then
+
+loadstring(game:HttpGet"https://raw.githubusercontent.com/PossiblyTom/RyftSploit/main/UI.lua")()
+return
+end
+
+local d=Instance.new"ScreenGui"
+local e=Instance.new"Frame"
+local f=Instance.new"TextBox"
+local g=Instance.new"TextButton"
+
+local h="3K9QH-7R2WP-XF8ND-L6Y5A-G4Z1V"
+local i=true
+local j
+local k=2
+
+
+d.Name="KeySystem"
+d.Parent=game:GetService"CoreGui"
+
+e.Size=UDim2.new(0,300,0,150)
+e.Position=UDim2.new(0.5,-150,0.5,-75)
+e.BackgroundColor3=Color3.fromRGB(50,50,50)
+e.Active=true
+e.Draggable=true
+e.Parent=d
+
+f.Size=UDim2.new(0,280,0,50)
+f.Position=UDim2.new(0.5,-140,0.3,-25)
+f.PlaceholderText="Enter Key"
+f.Text=""
+f.TextSize=18
+f.ClearTextOnFocus=false
+f.Parent=e
+
+g.Size=UDim2.new(0,280,0,50)
+g.Position=UDim2.new(0.5,-140,0.7,-25)
+g.Text="Submit"
+g.TextSize=18
+g.BackgroundColor3=Color3.fromRGB(70,130,180)
+g.TextColor3=Color3.fromRGB(255,255,255)
+g.Parent=e
+
+local function onSubmit()
+if i then
+i=false
+local l=DateTime.now().UnixTimestamp
+if j and(l-j)<k then
+f.Text="Please wait before trying again."
+f.TextColor3=Color3.fromRGB(255,255,0)
+wait(2)
+f.Text=""
+f.TextColor3=Color3.fromRGB(0,0,0)
+i=true
+return
+end
+
+if f.Text==h then
+f.Text="Correct Key!"
+f.TextColor3=Color3.fromRGB(0,255,0)
+j=l
+wait(1.3)
+d:Destroy()
+loadstring(game:HttpGet"https://raw.githubusercontent.com/PossiblyTom/RyftSploit/main/UI.lua")()
+else
+f.Text="Wrong Key!"
+f.TextColor3=Color3.fromRGB(255,0,0)
+wait(2)
+f.Text=""
+f.TextColor3=Color3.fromRGB(0,0,0)
+i=true
+end
+end
+end
+
+g.MouseButton1Click:Connect(onSubmit)
