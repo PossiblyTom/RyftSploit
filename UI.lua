@@ -154,11 +154,8 @@ local q={
 }
 
 local r={
-{text="Walkspeed 30",loadStringCode=[[
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/TomsStuff/Toms-Executor/main/SpeedChanger"))()
-        ]]},
-{text="Spinbot",loadStringCode=[[
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/TomsStuff/Toms-Executor/main/spinbott"))()
+{text="ESP",loadStringCode=[[
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/TomsStuff/Toms-Executor/main/PhantomForces-BoxESP"))()
         ]]}
 }
 
@@ -185,7 +182,7 @@ local w=(f.AbsoluteSize.X-v)/2
 
 createTab(g,UDim2.new(0,w,0,0),"Arsenal",k,p)
 createTab(h,UDim2.new(0,w+t+u,0,0),"Rivals",l,q)
-createTab(i,UDim2.new(0,w+2*(t+u),0,0),"Fun",m,r)
+createTab(i,UDim2.new(0,w+2*(t+u),0,0),"Phantom Forces",m,r)
 createTab(j,UDim2.new(0,w+3*(t+u),0,0),"Universal",n,s)
 
 
