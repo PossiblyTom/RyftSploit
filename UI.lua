@@ -220,7 +220,7 @@ end
 
 g.MouseButton1Click:Connect(function()selectTab"Arsenal"end)
 h.MouseButton1Click:Connect(function()selectTab"Rivals"end)
-i.MouseButton1Click:Connect(function()selectTab"Fun"end)
+i.MouseButton1Click:Connect(function()selectTab"Phantom Forces"end)
 j.MouseButton1Click:Connect(function()selectTab"Universal"end)
 
 
