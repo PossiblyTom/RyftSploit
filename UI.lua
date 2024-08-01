@@ -132,8 +132,11 @@ local i={
 }
 
 local j={
-{text="Aimbot + ESP",loadStringCode=[[
+{text="Aimbot + ESP (HEAD ONLY)",loadStringCode=[[
             loadstring(game:HttpGet("https://raw.githubusercontent.com/TomsStuff/Toms-Executor/main/Rivals-MainLoader"))()
+        ]]},
+{text="Aimbot + ESP(BODY + HEAD)",loadStringCode=[[
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/TomsStuff/Toms-Executor/main/Rivals-TestLoader"))()
         ]]}
 }
 
