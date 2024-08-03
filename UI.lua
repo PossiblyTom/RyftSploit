@@ -158,6 +158,9 @@ local l={
         ]]},
 {text="Fullbright",loadStringCode=[[
             loadstring(game:HttpGet("https://raw.githubusercontent.com/TomsStuff/Toms-Executor/main/fullbright"))()
+        ]]},
+{text="FOV Slider",loadStringCode=[[
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/TomsStuff/Toms-Executor/main/FOV-SLIDER"))()
         ]]}
 }
 
