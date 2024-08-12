@@ -2,7 +2,9 @@ local a=game:GetService"Players"or game:GetService"Players - Client"
 local b=a.LocalPlayer
 
 
-local c={SiIIiiness=
+local c={guest655643=
+true,
+SiIIiiness=
 true,quabbleduff=
 true,bwcstick=
 true,iamnottom_1=
