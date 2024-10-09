@@ -132,7 +132,8 @@ local function createUI()
     }
 
     local pfItems = {
-        {text = "ESP", loadStringCode = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/TomsStuff/Toms-Executor/main/PhantomForces-BoxESP"))()]]}
+        {text = "ESP", loadStringCode = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/TomsStuff/Toms-Executor/main/PhantomForces-BoxESP"))()]]},
+        {text = "Aimbot (No ESP)", loadStringCode = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/TomsStuff/Toms-Executor/main/PhantomForces-Aimbot"))()]]}
     }
 
     local universalItems = {
