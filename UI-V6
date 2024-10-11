@@ -351,6 +351,7 @@ addButton("Arsenal", "No Recoil", "loadstring(game:HttpGet('https://raw.githubus
 createTab("Phantom Forces")
 addButton("Phantom Forces", "Chams", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/PhantomForces-Chams'))()")
 addButton("Phantom Forces", "Aimbot (No Esp)", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/PhantomForces-Aimbot'))()")
+addButton("Phantom Forces", "Speedhack", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/PhantomForces-Speed'))()")
 
 -- Initialize with the 'Rivals' tab visible
 switchTab("Arsenal")
