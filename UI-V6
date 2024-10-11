@@ -1,0 +1,360 @@
+--DRAGGING FUNC--
+
+local function makeDraggable(frame)
+    local dragging
+    local dragStart
+    local startPos
+
+    local function update(input)
+        local delta = input.Position - dragStart
+        frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+
+    frame.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            dragStart = input.Position
+            startPos = frame.Position
+
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+
+    frame.InputChanged:Connect(function(input)
+        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+            update(input)
+        end
+    end)
+end
+
+
+-- Instances:
+
+local Converted = {
+	["_ScreenGui"] = Instance.new("ScreenGui");
+	["_Frame"] = Instance.new("Frame");
+	["_UICorner"] = Instance.new("UICorner");
+	["_RyftSploitV"] = Instance.new("TextLabel");
+	["_Hello"] = Instance.new("TextLabel");
+	["_DisplayName"] = Instance.new("TextLabel");
+	["_LocalScript"] = Instance.new("LocalScript");
+	["_RivalsTab"] = Instance.new("TextButton");
+	["_UICorner1"] = Instance.new("UICorner");
+	["_ArsenalTab"] = Instance.new("TextButton");
+	["_UICorner2"] = Instance.new("UICorner");
+	["_Separation"] = Instance.new("Frame");
+	["_Separation1"] = Instance.new("Frame");
+	["_Pfp"] = Instance.new("Frame");
+	["_ImageLabel"] = Instance.new("ImageLabel");
+	["_LocalScript1"] = Instance.new("LocalScript");
+	["_UICorner3"] = Instance.new("UICorner");
+	["_ExecuteButtons"] = Instance.new("Frame");
+}
+
+-- Properties:
+
+Converted["_ScreenGui"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+Converted["_ScreenGui"].Parent = game:GetService("CoreGui")
+
+Converted["_Frame"].BackgroundColor3 = Color3.fromRGB(30.00000011175871, 30.00000011175871, 30.00000011175871)
+Converted["_Frame"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+Converted["_Frame"].BorderSizePixel = 0
+Converted["_Frame"].Position = UDim2.new(0.0515695065, 0, 0.173123494, 0)
+Converted["_Frame"].Size = UDim2.new(0, 671, 0, 355)
+Converted["_Frame"].Parent = Converted["_ScreenGui"]
+makeDraggable(Converted["_Frame"])
+
+local isVisible = true
+local lastPosition = Converted["_Frame"].Position
+
+-- Function to toggle UI visibility
+local function toggleUI()
+    isVisible = not isVisible
+    Converted["_Frame"].Visible = isVisible
+    if isVisible then
+        Converted["_Frame"].Position = lastPosition -- Restore position if showing
+    else
+        lastPosition = Converted["_Frame"].Position -- Save current position if hiding
+    end
+end
+
+-- Connect the right mouse button input to toggle the UI
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessedEvent)
+    if not gameProcessedEvent and input.KeyCode == Enum.KeyCode.RightShift then -- Right Shift key
+        toggleUI()
+    end
+end)
+Converted["_UICorner"].CornerRadius = UDim.new(0.0599999987, 0)
+Converted["_UICorner"].Parent = Converted["_Frame"]
+
+
+Converted["_RyftSploitV"].Font = Enum.Font.SourceSans
+Converted["_RyftSploitV"].Text = "RyftSploit V6"
+Converted["_RyftSploitV"].TextColor3 = Color3.fromRGB(255, 255, 255)
+Converted["_RyftSploitV"].TextSize = 23
+Converted["_RyftSploitV"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Converted["_RyftSploitV"].BackgroundTransparency = 1
+Converted["_RyftSploitV"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+Converted["_RyftSploitV"].BorderSizePixel = 0
+Converted["_RyftSploitV"].Size = UDim2.new(0, 143, 0, 37)
+Converted["_RyftSploitV"].Name = "RyftSploitV"
+Converted["_RyftSploitV"].Parent = Converted["_Frame"]
+
+Converted["_Hello"].Font = Enum.Font.SourceSans
+Converted["_Hello"].Text = "Hello, "
+Converted["_Hello"].TextColor3 = Color3.fromRGB(255, 255, 255)
+Converted["_Hello"].TextSize = 17
+Converted["_Hello"].BackgroundColor3 = Color3.fromRGB(30.00000011175871, 30.00000011175871, 30.00000011175871)
+Converted["_Hello"].BorderColor3 = Color3.fromRGB(255, 255, 255)
+Converted["_Hello"].BorderSizePixel = 0
+Converted["_Hello"].Position = UDim2.new(0.0799999982, 0, 0.830985904, 0)
+Converted["_Hello"].Size = UDim2.new(0, 43, 0, 50)
+Converted["_Hello"].Name = "Hello"
+Converted["_Hello"].Parent = Converted["_Frame"]
+
+Converted["_DisplayName"].Font = Enum.Font.SourceSans
+Converted["_DisplayName"].Text = "Name!"
+Converted["_DisplayName"].TextColor3 = Color3.fromRGB(255, 255, 255)
+Converted["_DisplayName"].TextSize = 17
+Converted["_DisplayName"].TextXAlignment = Enum.TextXAlignment.Left
+Converted["_DisplayName"].BackgroundColor3 = Color3.fromRGB(30.00000011175871, 30.00000011175871, 30.00000011175871)
+Converted["_DisplayName"].BorderColor3 = Color3.fromRGB(255, 255, 255)
+Converted["_DisplayName"].BorderSizePixel = 0
+Converted["_DisplayName"].Position = UDim2.new(0.140000001, 0, 0.829999983, 0)
+Converted["_DisplayName"].Size = UDim2.new(0, 104, 0, 50)
+Converted["_DisplayName"].Name = "DisplayName"
+Converted["_DisplayName"].Parent = Converted["_Frame"]
+
+
+Converted["_Separation"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Converted["_Separation"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+Converted["_Separation"].BorderSizePixel = 0
+Converted["_Separation"].Position = UDim2.new(0.213114753, 0, 1, 0)
+Converted["_Separation"].Size = UDim2.new(0, 1, 0, -355)
+Converted["_Separation"].Name = "Separation"
+Converted["_Separation"].Parent = Converted["_Frame"]
+
+Converted["_Separation1"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Converted["_Separation1"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+Converted["_Separation1"].BorderSizePixel = 0
+Converted["_Separation1"].Position = UDim2.new(0, 0, 0.825352132, 0)
+Converted["_Separation1"].Size = UDim2.new(0, 143, 0, -1)
+Converted["_Separation1"].Name = "Separation"
+Converted["_Separation1"].Parent = Converted["_Frame"]
+
+Converted["_Pfp"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Converted["_Pfp"].BackgroundTransparency = 1
+Converted["_Pfp"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+Converted["_Pfp"].BorderSizePixel = 0
+Converted["_Pfp"].Position = UDim2.new(0.0163934417, 0, 0.845070422, 0)
+Converted["_Pfp"].Size = UDim2.new(0, 44, 0, 42)
+Converted["_Pfp"].Name = "Pfp"
+Converted["_Pfp"].Parent = Converted["_Frame"]
+
+Converted["_ImageLabel"].Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+Converted["_ImageLabel"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Converted["_ImageLabel"].BackgroundTransparency = 1
+Converted["_ImageLabel"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+Converted["_ImageLabel"].BorderSizePixel = 0
+Converted["_ImageLabel"].Position = UDim2.new(-0.0749090388, 0, -0.0121430894, 0)
+Converted["_ImageLabel"].Size = UDim2.new(0, 44, 0, 42)
+Converted["_ImageLabel"].Parent = Converted["_Pfp"]
+
+Converted["_UICorner3"].CornerRadius = UDim.new(1, 8)
+Converted["_UICorner3"].Parent = Converted["_ImageLabel"]
+
+Converted["_ExecuteButtons"].BackgroundColor3 = Color3.fromRGB(40.00000141561031, 40.00000141561031, 40.00000141561031)
+Converted["_ExecuteButtons"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+Converted["_ExecuteButtons"].BorderSizePixel = 0
+Converted["_ExecuteButtons"].Position = UDim2.new(0.214605063, 0, 0.104225352, 0)
+Converted["_ExecuteButtons"].Size = UDim2.new(0, 527, 0, 279)
+Converted["_ExecuteButtons"].Name = "ExecuteButtons"
+Converted["_ExecuteButtons"].Parent = Converted["_Frame"]
+
+local scrollFrame = Instance.new("ScrollingFrame")
+scrollFrame.Size = UDim2.new(1, 0, 1, 0) -- Full size of the ExecuteButtons frame
+scrollFrame.Position = UDim2.new(0, 0, 0, 0)
+scrollFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+scrollFrame.BorderSizePixel = 0
+scrollFrame.ScrollBarThickness = 10
+scrollFrame.Parent = Converted["_ExecuteButtons"]
+
+-- Create a UIListLayout for automatic button arrangement
+local uiListLayout = Instance.new("UIListLayout")
+uiListLayout.FillDirection = Enum.FillDirection.Vertical
+uiListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+uiListLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+uiListLayout.Padding = UDim.new(0, 10) -- Adjust spacing between buttons
+uiListLayout.Parent = scrollFrame
+
+Converted["_ExecuteButtons"].ClipsDescendants = true -- Clips the content
+
+
+-- Fake Module Scripts:
+
+local fake_module_scripts = {}
+
+
+-- Fake Local Scripts:
+
+local function RNPGVY_fake_script() -- Fake Script: StarterGui.ScreenGui.Frame.DisplayName.LocalScript
+    local script = Instance.new("LocalScript")
+    script.Name = "LocalScript"
+    script.Parent = Converted["_DisplayName"]
+    local req = require
+    local require = function(obj)
+        local fake = fake_module_scripts[obj]
+        if fake then
+            return fake()
+        end
+        return req(obj)
+    end
+
+	local Players = game:GetService("Players")
+	local player = Players.LocalPlayer 
+	
+	local displayName = player.DisplayName 
+	
+	local textLabel = script.Parent
+	
+	-- Get the first 4 letters of the display name
+	local shortDisplayName = string.sub(displayName, 1, 4)
+	
+	-- Concatenate '!' after the shortened display name
+	textLabel.Text = shortDisplayName .. "!"
+	
+end
+local function NOCGBFS_fake_script() -- Fake Script: StarterGui.ScreenGui.Frame.Pfp.ImageLabel.LocalScript
+    local script = Instance.new("LocalScript")
+    script.Name = "LocalScript"
+    script.Parent = Converted["_ImageLabel"]
+    local req = require
+    local require = function(obj)
+        local fake = fake_module_scripts[obj]
+        if fake then
+            return fake()
+        end
+        return req(obj)
+    end
+
+	local Players = game:GetService("Players")
+	local player = Players.LocalPlayer
+	local imagelabel = script.Parent
+	imagelabel.Image = Players:GetUserThumbnailAsync(player.UserId,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size420x420)
+end
+local tabs = {}
+local tabButtons = {}
+local currentTab = nil
+
+-- Function to switch tabs
+local function switchTab(tab)
+	if currentTab == tab then return end  -- Prevent reloading the same tab
+
+	-- Update tab button colors
+	for tabName, tabInfo in pairs(tabs) do
+		tabInfo.button.BackgroundColor3 = tab == tabName and Color3.fromRGB(70, 70, 70) or Color3.fromRGB(50, 50, 50)
+		for _, button in pairs(tabInfo.buttons) do
+			button.Visible = (tab == tabName)
+		end
+	end
+
+	currentTab = tab
+end
+
+-- Function to add a new tab
+local function createTab(tabName)
+	if tabs[tabName] then return end  -- Don't allow duplicate tabs
+
+	-- Create the new tab button
+	local newTabButton = Instance.new("TextButton")
+	newTabButton.Font = Enum.Font.Highway
+	newTabButton.Text = tabName
+	newTabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+	newTabButton.TextSize = 20
+	newTabButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+	newTabButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	newTabButton.BorderSizePixel = 0
+	newTabButton.Size = UDim2.new(0, 143, 0, 50)
+
+	-- Position the tabs with more spacing
+	newTabButton.Position = UDim2.new(0, 0, (#tabButtons * 0.144) + 0.11, 0) -- Adjust spacing between tabs
+
+	newTabButton.Name = tabName .. "Tab"
+	newTabButton.Parent = Converted["_Frame"]
+
+	-- Add UICorner for rounded edges
+	local corner = Instance.new("UICorner")
+	corner.Parent = newTabButton
+
+	-- Store this tab's info
+	tabs[tabName] = {
+		button = newTabButton,
+		buttons = {}
+	}
+	table.insert(tabButtons, newTabButton)
+
+	-- Connect the tab switch functionality to the button
+	newTabButton.MouseButton1Click:Connect(function()
+		switchTab(tabName)
+	end)
+end
+
+-- Function to add buttons to a specified tab
+local function addButton(tabName, buttonText, loadstringCode)
+    if not tabs[tabName] then return end  -- Check if tab exists
+
+    -- Create the new button
+    local button = Instance.new("TextButton")
+    button.Font = Enum.Font.Highway
+    button.Text = buttonText
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.TextSize = 20
+    button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    button.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    button.BorderSizePixel = 0
+    button.Size = UDim2.new(0.9, 0, 0, 50) -- Make button size consistent
+    button.Parent = scrollFrame -- Add button to the scroll frame
+
+    -- Connect the button to execute the loadstring code
+    button.MouseButton1Click:Connect(function()
+        loadstring(loadstringCode)() -- Ensure to safely load and execute code
+    end)
+
+    -- Only visible if the tab is active
+    button.Visible = (currentTab == tabName)
+
+    -- Add the button to the tab's button list
+    table.insert(tabs[tabName].buttons, button)
+end
+
+-- Initialize default tabs
+createTab("Arsenal")
+createTab("Rivals")
+
+
+addButton("Rivals", "Aimbot + BoxESP", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/Rivals-MainLoader'))()")
+
+-- Example: Add buttons to the 'Arsenal' tab
+addButton("Arsenal", "Aimbot + ESP", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/Arsenal-MainLoader'))()")
+addButton("Arsenal", "Infinite Ammo", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/Arsenal-InfAmmo'))()")
+addButton("Arsenal", "Fire Rate (VERY Blatant)", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/Arsenal-FireRateTesting'))()")
+addButton("Arsenal", "No Equip Time", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/EquipTimeChanger'))()")
+addButton("Arsenal", "No Spread", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/Arsenal-NoSpread'))()")
+addButton("Arsenal", "Auto All (VERY Blatant)", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/Arsenal-FullAutoEverything'))()")
+addButton("Arsenal", "No Recoil", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/Arsenal-NoRecoil'))()")
+
+-- Example: Adding more tabs dynamically
+createTab("Phantom Forces")
+addButton("Phantom Forces", "Chams", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/PhantomForces-Esp'))()")
+addButton("Phantom Forces", "Aimbot (No Esp)", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/PhantomForces-Aimbot'))()")
+
+-- Initialize with the 'Rivals' tab visible
+switchTab("Arsenal")
+
+coroutine.wrap(RNPGVY_fake_script)()
+coroutine.wrap(NOCGBFS_fake_script)()
+
