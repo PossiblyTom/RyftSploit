@@ -349,7 +349,7 @@ addButton("Arsenal", "No Recoil", "loadstring(game:HttpGet('https://raw.githubus
 
 -- Example: Adding more tabs dynamically
 createTab("Phantom Forces")
-addButton("Phantom Forces", "Chams", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/PhantomForces-Esp'))()")
+addButton("Phantom Forces", "Chams", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/PhantomForces-Chams'))()")
 addButton("Phantom Forces", "Aimbot (No Esp)", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/PhantomForces-Aimbot'))()")
 
 -- Initialize with the 'Rivals' tab visible
