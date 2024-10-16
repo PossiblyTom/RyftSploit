@@ -53,6 +53,7 @@ local Converted = {
 	["_LocalScript1"] = Instance.new("LocalScript");
 	["_UICorner3"] = Instance.new("UICorner");
 	["_ExecuteButtons"] = Instance.new("Frame");
+    ["_Discord"] = Instance.new("TextLabel");
 }
 
 -- Properties:
@@ -88,7 +89,7 @@ game:GetService("UserInputService").InputBegan:Connect(function(input, gameProce
         toggleUI()
     end
 end)
-Converted["_UICorner"].CornerRadius = UDim.new(0.0599999987, 0)
+Converted["_UICorner"].CornerRadius = UDim.new(0.028, 0)
 Converted["_UICorner"].Parent = Converted["_Frame"]
 
 
@@ -103,6 +104,18 @@ Converted["_RyftSploitV"].BorderSizePixel = 0
 Converted["_RyftSploitV"].Size = UDim2.new(0, 143, 0, 37)
 Converted["_RyftSploitV"].Name = "RyftSploitV"
 Converted["_RyftSploitV"].Parent = Converted["_Frame"]
+
+Converted["_Discord"].Font = Enum.Font.SourceSans
+Converted["_Discord"].Text = "dsc.gg/RyftSploit"
+Converted["_Discord"].TextColor3 = Color3.fromRGB(255, 255, 255)
+Converted["_Discord"].TextSize = 17
+Converted["_Discord"].BackgroundColor3 = Color3.fromRGB(30.00000011175871, 30.00000011175871, 30.00000011175871)
+Converted["_Discord"].BorderColor3 = Color3.fromRGB(255, 255, 255)
+Converted["_Discord"].BorderSizePixel = 0
+Converted["_Discord"].Position = UDim2.new(0.798330843, 0, 0, 0)
+Converted["_Discord"].Size = UDim2.new(0, 107, 0, 37)
+Converted["_Discord"].Name = "Discord"
+Converted["_Discord"].Parent = Converted["_Frame"]
 
 Converted["_Hello"].Font = Enum.Font.SourceSans
 Converted["_Hello"].Text = "Hello, "
@@ -178,7 +191,7 @@ Converted["_ExecuteButtons"].Parent = Converted["_Frame"]
 local scrollFrame = Instance.new("ScrollingFrame")
 scrollFrame.Size = UDim2.new(1, 0, 1, 0) -- Full size of the ExecuteButtons frame
 scrollFrame.Position = UDim2.new(0, 0, 0, 0)
-scrollFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+scrollFrame.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
 scrollFrame.BorderSizePixel = 0
 scrollFrame.ScrollBarThickness = 10
 scrollFrame.Parent = Converted["_ExecuteButtons"]
@@ -351,11 +364,10 @@ addButton("Arsenal", "No Recoil", "loadstring(game:HttpGet('https://raw.githubus
 createTab("Phantom Forces")
 addButton("Phantom Forces", "Chams", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/PhantomForces-Chams'))()")
 addButton("Phantom Forces", "Aimbot (No Esp)", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/PhantomForces-Aimbot'))()")
-addButton("Phantom Forces", "Speedhack", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/PhantomForces-Speed'))()")
+addButton("Phantom Forces", "Speedhack", "loadstring(game:HttpGet('https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/PhantomForces-SpeedHackV3'))()")
 
 -- Initialize with the 'Rivals' tab visible
 switchTab("Arsenal")
 
 coroutine.wrap(RNPGVY_fake_script)()
 coroutine.wrap(NOCGBFS_fake_script)()
-
