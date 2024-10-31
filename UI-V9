@@ -1,13 +1,15 @@
--- Definitions
 local player = game.Players.LocalPlayer
 local mouse = player:GetMouse()
 local camera = game.Workspace.CurrentCamera
 local runService = game:GetService("RunService")
 local userInputService = game:GetService("UserInputService")
 local TeamsToIgnore = {"TRC", "TBC"}
+local ESPEnabled = false
 local isAimbotActive = false
+local ESPElements = {}
+local UpdateInterval = 10
+local RemoveESPInterval = 0.2
 
--- Functions
 local function getIgnoreTeams()
     local ignoreTeams = {}
     if player.Team then
@@ -22,6 +24,108 @@ end
 
 local function shouldIgnorePlayer(otherPlayer, ignoreTeams)
     return ignoreTeams[otherPlayer.Team.Name] ~= nil
+end
+
+local function createHighlightBox(part)
+    local box = Instance.new("BoxHandleAdornment")
+    box.Size = part.Size
+    box.Color3 = Color3.new(1, 0, 1)
+    box.Transparency = 0.5
+    box.AlwaysOnTop = true
+    box.ZIndex = 10
+    box.Adornee = part
+    box.Parent = part
+    return box
+end
+
+local function createNameLabel(character)
+    local head = character:FindFirstChild("Head")
+    if head then
+        local label = Instance.new("BillboardGui")
+        label.Name = "NameLabel"
+        label.Adornee = head
+        label.Size = UDim2.new(0, 50, 0, 75)
+        label.StudsOffset = Vector3.new(0, 3, 0)
+        label.AlwaysOnTop = true
+        label.Parent = head
+
+        local text = Instance.new("TextLabel")
+        text.Size = UDim2.new(1, 0, 1, 0)
+        text.BackgroundTransparency = 1
+        text.TextColor3 = Color3.new(1, 0, 1)
+        text.TextStrokeTransparency = 0.5
+        text.TextStrokeColor3 = Color3.new(0, 0, 0)
+        text.Text = character.Name
+        text.TextScaled = true
+        text.Parent = label
+        return label
+    end
+end
+
+local function addESP(character, ignoreTeams)
+    if not ESPEnabled then return end
+
+    local bodyPartNames = {
+        "Head", "Torso", "UpperTorso", "LowerTorso", 
+        "LeftArm", "LeftUpperArm", "LeftLowerArm", "LeftHand", 
+        "RightUpperArm", "RightLowerArm", "RightHand",
+        "LeftLeg", "LeftUpperLeg", "LeftLowerLeg", "LeftFoot", 
+        "RightUpperLeg", "RightLowerLeg", "RightFoot"
+    }
+
+    local characterPlayer = game.Players:GetPlayerFromCharacter(character)
+    if characterPlayer and ignoreTeams[characterPlayer.Team.Name] then
+        return
+    end
+
+    for _, partName in pairs(bodyPartNames) do
+        local part = character:FindFirstChild(partName)
+        if part and part:IsA("BasePart") then
+            local box = createHighlightBox(part)
+            if not ESPElements[character] then
+                ESPElements[character] = {}
+            end
+            table.insert(ESPElements[character], box)
+        end
+    end
+
+    local nameLabel = createNameLabel(character)
+    if not ESPElements[character] then
+        ESPElements[character] = {}
+    end
+    table.insert(ESPElements[character], nameLabel)
+end
+
+local function removeESP(character)
+    if ESPElements[character] then
+        for _, element in pairs(ESPElements[character]) do
+            if element and element:IsA("Instance") then
+                element:Destroy()
+            end
+        end
+        ESPElements[character] = nil
+    end
+end
+
+local function processPlayers()
+    local ignoreTeams = getIgnoreTeams()
+    local localPlayer = game.Players.LocalPlayer
+
+    for _, player in pairs(game.Players:GetPlayers()) do
+        if player.Character and player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+            if player.Name ~= localPlayer.Name then
+                if localPlayer.Team and localPlayer.Team.Name == player.Team.Name then
+                    removeESP(player.Character)
+                else
+                    if ESPEnabled then
+                        addESP(player.Character, ignoreTeams)
+                    else
+                        removeESP(player.Character)
+                    end
+                end
+            end
+        end
+    end
 end
 
 local function getClosestPlayerToMouse()
@@ -55,46 +159,87 @@ local function aimAtClosestPlayer()
     end
 end
 
--- Aimbot Logic
 runService.RenderStepped:Connect(function()
     if isAimbotActive and userInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
         aimAtClosestPlayer()
     end
 end)
 
-
-
-
--- UI
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/PossiblyTom/RyftSploit/refs/heads/main/UI-Lib"))()
 
 local themes = {
-	Background = Color3.fromRGB(24, 24, 24), 
-	Glow = Color3.fromRGB(0, 0, 0), 
-	Accent = Color3.fromRGB(10, 10, 10), 
-	LightContrast = Color3.fromRGB(20, 20, 20), 
-	DarkContrast = Color3.fromRGB(255, 0, 0),  
-	TextColor = Color3.fromRGB(255, 255, 255)
+    Background = Color3.fromRGB(24, 24, 24), 
+    Glow = Color3.fromRGB(0, 0, 0), 
+    Accent = Color3.fromRGB(10, 10, 10), 
+    LightContrast = Color3.fromRGB(20, 20, 20), 
+    DarkContrast = Color3.fromRGB(255, 0, 0),  
+    TextColor = Color3.fromRGB(255, 255, 255)
 }
 
 local ui = lib.new("RyftSploit | Arsenal", 5013109572)
 local main = ui:addPage("Main", 5012544693)
 local theme = ui:addPage("Theme", 5012544693)
 local Aimbot = main:addSection("Aimbot")
+local ESP = main:addSection("ESP")
 local Gun_Mods = main:addSection("Gun Mods")
 local colors = theme:addSection("Colors")
 
-for theme, color in pairs(themes) do -- all in one theme changer, i know, im cool
-colors:addColorPicker(theme, color, function(color3)
-ui:setTheme(theme, color3)
-end)
+for theme, color in pairs(themes) do
+    colors:addColorPicker(theme, color, function(color3)
+        ui:setTheme(theme, color3)
+    end)
 end
 
 Aimbot:addToggle("Toggle", nil, function(value)
     isAimbotActive = value
 end)
+
+ESP:addToggle("Toggle", nil, function(value)
+    ESPEnabled = value
+    if ESPEnabled then
+        processPlayers()
+    else
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player.Character then
+                removeESP(player.Character)
+            end
+        end
+    end
+end)
+
 Gun_Mods:addButton("No Recoil", function()
-print("Clicked")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/Arsenal-NoRecoil"))()
+end)
+Gun_Mods:addButton("Fire Rate", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/Arsenal-FireRateTesting"))()
+end)
+Gun_Mods:addButton("Infinite Ammo", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/Arsenal-InfAmmo"))()
+end)
+Gun_Mods:addButton("No Equip Time", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/Arsenal-EquipTimeChanger"))()
+end)
+Gun_Mods:addButton("No Spread", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/Arsenal-NoSpread"))()
+end)
+Gun_Mods:addButton("All-Full Auto", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TomsStuff/Toms-Executor/refs/heads/main/Arsenal-FullAutoEverything"))()
 end)
 
 ui:SelectPage(ui.pages[1], true)
+
+processPlayers()
+
+while true do
+    processPlayers()
+    wait(UpdateInterval)
+end
+
+while true do
+    for character, elements in pairs(ESPElements) do
+        if not character or not character.Parent then
+            removeESP(character)
+        end
+    end
+    wait(RemoveESPInterval)
+end
