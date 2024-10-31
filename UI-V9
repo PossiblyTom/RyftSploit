@@ -1,0 +1,100 @@
+-- Definitions
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+local camera = game.Workspace.CurrentCamera
+local runService = game:GetService("RunService")
+local userInputService = game:GetService("UserInputService")
+local TeamsToIgnore = {"TRC", "TBC"}
+local isAimbotActive = false
+
+-- Functions
+local function getIgnoreTeams()
+    local ignoreTeams = {}
+    if player.Team then
+        for _, teamName in ipairs(TeamsToIgnore) do
+            if player.Team.Name == teamName then
+                ignoreTeams[teamName] = true
+            end
+        end
+    end
+    return ignoreTeams
+end
+
+local function shouldIgnorePlayer(otherPlayer, ignoreTeams)
+    return ignoreTeams[otherPlayer.Team.Name] ~= nil
+end
+
+local function getClosestPlayerToMouse()
+    local closestPlayer, shortestDistance = nil, math.huge
+    local ignoreTeams = getIgnoreTeams()
+
+    for _, otherPlayer in ipairs(game.Players:GetPlayers()) do
+        if otherPlayer ~= player and otherPlayer.Character and otherPlayer.Character:FindFirstChild("Head") then
+            if not shouldIgnorePlayer(otherPlayer, ignoreTeams) then
+                local head = otherPlayer.Character.Head
+                local screenPoint = camera:WorldToScreenPoint(head.Position)
+                local mousePos = Vector2.new(mouse.X, mouse.Y)
+                local distance = (Vector2.new(screenPoint.X, screenPoint.Y) - mousePos).magnitude
+
+                if screenPoint.Z > 0 and screenPoint.X >= 0 and screenPoint.X <= camera.ViewportSize.X and screenPoint.Y >= 0 and screenPoint.Y <= camera.ViewportSize.Y then
+                    if distance < shortestDistance then
+                        shortestDistance, closestPlayer = distance, otherPlayer
+                    end
+                end
+            end
+        end
+    end
+    return closestPlayer
+end
+
+local function aimAtClosestPlayer()
+    local closestPlayer = getClosestPlayerToMouse()
+    if closestPlayer and closestPlayer.Character and closestPlayer.Character:FindFirstChild("Head") then
+        local targetPosition = closestPlayer.Character.Head.Position
+        camera.CFrame = CFrame.new(camera.CFrame.Position, targetPosition)
+    end
+end
+
+-- Aimbot Logic
+runService.RenderStepped:Connect(function()
+    if isAimbotActive and userInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
+        aimAtClosestPlayer()
+    end
+end)
+
+
+
+
+-- UI
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/PossiblyTom/RyftSploit/refs/heads/main/UI-Lib"))()
+
+local themes = {
+	Background = Color3.fromRGB(24, 24, 24), 
+	Glow = Color3.fromRGB(0, 0, 0), 
+	Accent = Color3.fromRGB(10, 10, 10), 
+	LightContrast = Color3.fromRGB(20, 20, 20), 
+	DarkContrast = Color3.fromRGB(255, 0, 0),  
+	TextColor = Color3.fromRGB(255, 255, 255)
+}
+
+local ui = lib.new("RyftSploit | Arsenal", 5013109572)
+local main = ui:addPage("Main", 5012544693)
+local theme = ui:addPage("Theme", 5012544693)
+local Aimbot = main:addSection("Aimbot")
+local Gun_Mods = main:addSection("Gun Mods")
+local colors = theme:addSection("Colors")
+
+for theme, color in pairs(themes) do -- all in one theme changer, i know, im cool
+colors:addColorPicker(theme, color, function(color3)
+ui:setTheme(theme, color3)
+end)
+end
+
+Aimbot:addToggle("Toggle", nil, function(value)
+    isAimbotActive = value
+end)
+Gun_Mods:addButton("No Recoil", function()
+print("Clicked")
+end)
+
+ui:SelectPage(ui.pages[1], true)
