@@ -1,0 +1,8 @@
+-- Check if the game ID is 286090429
+if game.PlaceId == 286090429 then
+    -- If it is the specific game, execute the first script
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/PossiblyTom/RyftSploit/refs/heads/main/UI-V9"))()
+else
+    -- If it is not the specific game, execute the second script
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/PossiblyTom/RyftSploit/refs/heads/main/UI-V2"))()
+end
