@@ -876,7 +876,7 @@ do
 			end
 			
 			if callback then
-			
+				callback(input.Text, nil, function(...)
 					self:updateTextbox(textbox, ...)
 				end)
 			end
@@ -1674,6 +1674,7 @@ do
 				textbox.Text = text:sub(1, #text - 1)
 			elseif not allowed[text] then	
 				value = self:updateSlider(slider, nil, tonumber(text) or value, min, max)
+				callback(value)
 			end
 		end)
 		
@@ -1795,7 +1796,7 @@ do
 				local list = utility:Sort(search.TextBox.Text, list)
 				list = #list ~= 0 and list 
 				
-				
+				self:updateDropdown(dropdown, nil, list, callback)
 			end
 		end)
 		
