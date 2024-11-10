@@ -876,7 +876,7 @@ do
 			end
 			
 			if callback then
-				callback(input.Text, nil, function(...)
+			
 					self:updateTextbox(textbox, ...)
 				end)
 			end
