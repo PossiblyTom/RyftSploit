@@ -62,6 +62,16 @@ local function createNameLabel(character)
     end
 end
 
+local function onInputBegan(input, gameProcessedEvent)
+    if gameProcessedEvent then return end
+
+    if input.UserInputType == Enum.UserInputType.Keyboard then
+        if input.KeyCode == Enum.KeyCode.RightShift then
+            ui:toggle()  -- Toggles the UI visibility
+        end
+    end
+end
+
 local function addESP(character, ignoreTeams)
     if not ESPEnabled then return end
 
